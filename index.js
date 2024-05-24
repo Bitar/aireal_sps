@@ -107,8 +107,7 @@ wss.on('connection', function connection(ws) {
                 checkStreamerConnected(ws)
             }
         } catch (error) {
-            console.log('Invalid Message received')
-            console.log(data)
+            console.error('Error parsing JSON:', error);
         }
     });
     ws.on('close', function message(data) {
