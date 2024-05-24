@@ -3,6 +3,7 @@ const axios = require('axios')
 
 const wss = new WebSocket.Server({port: 9090});
 let reconnectInterval = null;
+const API_URL = 'https://staging.api.aireal.com'
 
 const AirealSPSType = {
     SERVER_INITIALIZED: 1,
@@ -14,9 +15,9 @@ function setup(ws) {
     console.log('Connection Established');
     console.log('Issue Command for new Instance: ' + formattedDate)
 
-    axios.post('http://api.aireal.test/api/matchmaker', null, {
+    axios.post(`${API_URL}/api/matchmaker`, null, {
         headers: {
-            'Authorization': 'Bearer 4|0IIaZZBasQj8yMK22gInsrjp653qj1dLKziu9C5Sa6430814'
+            'Authorization': 'Bearer 3|JcGMTiTSQCGXOHJpCwgMpj0VtkUvQOO9JdSnRPD7df079fc4'
         }
     })
         .then(response => {
@@ -40,9 +41,9 @@ function setup(ws) {
 }
 
 function deleteInstance(ws) {
-    axios.delete(`http://api.aireal.test/api/matchmaker/${ws.server?.id}`, {
+    axios.delete(`${API_URL}/api/matchmaker/${ws.server?.id}`, {
         headers: {
-            'Authorization': 'Bearer 4|0IIaZZBasQj8yMK22gInsrjp653qj1dLKziu9C5Sa6430814'
+            'Authorization': 'Bearer 3|JcGMTiTSQCGXOHJpCwgMpj0VtkUvQOO9JdSnRPD7df079fc4'
         }
     })
         .then(response => {
@@ -69,39 +70,15 @@ function checkStreamerConnected(ws) {
 
 }
 
-// const signallingWs = new WebSocket(`ws://54.201.119.85:8889`);
-//
-// signallingWs.on('open', function open() {
-//     console.log('WebSocket connection established.');
-// });
-//
-// signallingWs.on('message', function incoming(data) {
-//     console.log('WebSocket message received: ', data);
-// });
-//
-// signallingWs.on('close', function close() {
-//     console.log('WebSocket connection closed.');
-// });
-//
-// signallingWs.on('error', function error(err) {
-//     console.log('WebSocket error: ', err);
-// });
-
-// signallingWs.on('connection', function connection(ws) {
-//
-//     console.log('connected');
-//     ws.on('message', function message(data) {
-//         console.log('received: %s', data);
-//     });
-// });
-
 wss.on('connection', function connection(ws) {
-    setup(ws)
-
     ws.on('message', function message(data) {
         console.log('received: %s', data);
         try {
             let message = JSON.parse(data)
+
+            if(message.type === 2 && message.action === 'setup') {
+                setup(ws)
+            }
 
             if (message.type === 1 && message.action === 'check_streamer_connected') {
                 checkStreamerConnected(ws)
