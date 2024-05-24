@@ -100,10 +100,15 @@ wss.on('connection', function connection(ws) {
 
     ws.on('message', function message(data) {
         console.log('received: %s', data);
-        let message = JSON.parse(data)
+        try {
+            let message = JSON.parse(data)
 
-        if (message.type === 1 && message.action === 'check_streamer_connected') {
-            checkStreamerConnected(ws)
+            if (message.type === 1 && message.action === 'check_streamer_connected') {
+                checkStreamerConnected(ws)
+            }
+        } catch (error) {
+            console.log('Invalid Message received')
+            console.log(data)
         }
     });
     ws.on('close', function message(data) {
