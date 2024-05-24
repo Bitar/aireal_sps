@@ -13,7 +13,7 @@ const AirealSPSType = {
 
 const config = {
     headers: {
-        'Authorization': 'Bearer 3|JcGMTiTSQCGXOHJpCwgMpj0VtkUvQOO9JdSnRPD7df079fc4'
+        'Authorization': 'Bearer 3|JcGMTiTSQCGXOHJpCwgMpj0VtkUvQOO9JdSnRPD7df079fc4',
         // 'Authorization': 'Bearer 6|quoKgJlfiWktd4SfKFCUGTrMceosyA3CX3KuKew4552ac644',
         "Content-Type": "application/json",
     }
