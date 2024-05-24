@@ -69,23 +69,23 @@ function checkStreamerConnected(ws) {
 
 }
 
-const signallingWs = new WebSocket(`ws://54.201.119.85:8889`);
-
-signallingWs.on('open', function open() {
-    console.log('WebSocket connection established.');
-});
-
-signallingWs.on('message', function incoming(data) {
-    console.log('WebSocket message received: ', data);
-});
-
-signallingWs.on('close', function close() {
-    console.log('WebSocket connection closed.');
-});
-
-signallingWs.on('error', function error(err) {
-    console.log('WebSocket error: ', err);
-});
+// const signallingWs = new WebSocket(`ws://54.201.119.85:8889`);
+//
+// signallingWs.on('open', function open() {
+//     console.log('WebSocket connection established.');
+// });
+//
+// signallingWs.on('message', function incoming(data) {
+//     console.log('WebSocket message received: ', data);
+// });
+//
+// signallingWs.on('close', function close() {
+//     console.log('WebSocket connection closed.');
+// });
+//
+// signallingWs.on('error', function error(err) {
+//     console.log('WebSocket error: ', err);
+// });
 
 // signallingWs.on('connection', function connection(ws) {
 //
@@ -95,19 +95,19 @@ signallingWs.on('error', function error(err) {
 //     });
 // });
 
-// wss.on('connection', function connection(ws) {
-//     setup(ws)
-//
-//     ws.on('message', function message(data) {
-//         console.log('received: %s', data);
-//         let message = JSON.parse(data)
-//
-//         if (message.type === 1 && message.action === 'check_streamer_connected') {
-//             checkStreamerConnected(ws)
-//         }
-//     });
-//     ws.on('close', function message(data) {
-//         console.log('closed at: ' + new Date().toISOString())
-//         // deleteInstance(ws)
-//     })
-// });
+wss.on('connection', function connection(ws) {
+    setup(ws)
+
+    ws.on('message', function message(data) {
+        console.log('received: %s', data);
+        let message = JSON.parse(data)
+
+        if (message.type === 1 && message.action === 'check_streamer_connected') {
+            checkStreamerConnected(ws)
+        }
+    });
+    ws.on('close', function message(data) {
+        console.log('closed at: ' + new Date().toISOString())
+        // deleteInstance(ws)
+    })
+});
