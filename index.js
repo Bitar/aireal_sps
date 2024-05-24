@@ -127,6 +127,6 @@ wss.on('connection', function connection(ws) {
     });
     ws.on('close', function message(data) {
         console.log('closed at: ' + new Date().toISOString())
-        // deleteInstance(ws)
+        deleteInstance(ws)
     })
 });
