@@ -114,7 +114,7 @@ wss.on('connection', function connection(ws) {
                 notifyAirealStreamerConnected(ws, message)
             }
 
-            if(message.type === 2 && message.action === 'setup') {
+            if(message.type === 'setupInstance') {
                 setup(ws)
             }
 
