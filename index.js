@@ -18,30 +18,6 @@ const config = {
         "Content-Type": "application/json",
     }
 }
-
-function setupTest(serverSlug) {
-    const formattedDate = new Date().toISOString();
-    console.log('Connection Established');
-    console.log('Issue Command for new Instance: ' + formattedDate)
-
-    axios.post(`${API_URL}/api/matchmaker`, {server: serverSlug}, config)
-        .then(response => {
-            // handle success
-            const data = response.data
-
-            data.asps = {
-                type: AirealSPSType.SERVER_INITIALIZED,
-                message: 'Instance Initializing'
-            }
-        })
-        .catch(error => {
-            // handle error
-            console.error(error);
-        });
-}
-
-setupTest('borello-project')
-
 function setup(ws, serverSlug) {
     const formattedDate = new Date().toISOString();
     console.log('Connection Established');
