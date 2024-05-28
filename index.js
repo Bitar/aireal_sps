@@ -3,8 +3,8 @@ const axios = require('axios')
 
 const wss = new WebSocket.Server({port: 9090});
 let reconnectInterval = null;
-// const API_URL = 'https://staging.api.aireal.com'
-const API_URL = 'http://api.aireal.test'
+const API_URL = 'https://staging.api.aireal.com'
+// const API_URL = 'http://api.aireal.test'
 
 const AirealSPSType = {
     SERVER_INITIALIZED: 1,
