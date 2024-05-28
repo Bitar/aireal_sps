@@ -1,7 +1,21 @@
 const WebSocket = require('ws');
 const axios = require('axios')
+const https = require('https');
+const fs = require('fs');
 
-const wss = new WebSocket.Server({port: 9090});
+
+const privateKey = fs.readFileSync('/path/to/your/private.key');
+const certificate = fs.readFileSync('/path/to/your/certificate.crt');
+
+const credentials = {
+    key: privateKey,
+    cert: certificate
+};
+
+const httpsServer = https.createServer(credentials);
+httpsServer.listen(9090);
+
+const wss = new WebSocket.Server({server: httpsServer});
 const API_URL = 'https://api.aireal.com'
 // const API_URL = 'https://staging.api.aireal.com'
 // const API_URL = 'http://api.aireal.test'
