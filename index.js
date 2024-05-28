@@ -4,8 +4,8 @@ const https = require('https');
 const fs = require('fs');
 
 
-const privateKey = fs.readFileSync('/path/to/your/private.key');
-const certificate = fs.readFileSync('/path/to/your/certificate.crt');
+const privateKey = fs.readFileSync('/var/www/aireal-sps/certificates/client-key.pem');
+const certificate = fs.readFileSync('/var/www/aireal-sps/certificates/client-cert.pem');
 
 const credentials = {
     key: privateKey,
