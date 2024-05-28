@@ -3,8 +3,8 @@ const axios = require('axios')
 
 const wss = new WebSocket.Server({port: 9090});
 let reconnectInterval = null;
-const API_URL = 'https://staging.api.aireal.com'
-// const API_URL = 'http://api.aireal.test'
+// const API_URL = 'https://staging.api.aireal.com'
+const API_URL = 'http://api.aireal.test'
 
 const AirealSPSType = {
     SERVER_INITIALIZED: 1,
@@ -13,11 +13,34 @@ const AirealSPSType = {
 
 const config = {
     headers: {
-        'Authorization': 'Bearer 3|JcGMTiTSQCGXOHJpCwgMpj0VtkUvQOO9JdSnRPD7df079fc4',
-        // 'Authorization': 'Bearer 6|quoKgJlfiWktd4SfKFCUGTrMceosyA3CX3KuKew4552ac644',
+        'X-API-KEY': '2k9SFijJEOk4NSswNtDo',
+        'X-API-SECRET': 'ojI4jfrbj0BuAFHKL2ODNHroeRfawRA7q5yHLjKvukwOyh8lgSXM2An6URyHO00Tlko1f6nlgCpZ7aJn',
         "Content-Type": "application/json",
     }
 }
+
+function setupTest(serverSlug) {
+    const formattedDate = new Date().toISOString();
+    console.log('Connection Established');
+    console.log('Issue Command for new Instance: ' + formattedDate)
+
+    axios.post(`${API_URL}/api/matchmaker`, {server: serverSlug}, config)
+        .then(response => {
+            // handle success
+            const data = response.data
+
+            data.asps = {
+                type: AirealSPSType.SERVER_INITIALIZED,
+                message: 'Instance Initializing'
+            }
+        })
+        .catch(error => {
+            // handle error
+            console.error(error);
+        });
+}
+
+setupTest('borello-project')
 
 function setup(ws, serverSlug) {
     const formattedDate = new Date().toISOString();
