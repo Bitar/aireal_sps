@@ -19,12 +19,12 @@ const config = {
     }
 }
 
-function setup(ws) {
+function setup(ws, serverSlug) {
     const formattedDate = new Date().toISOString();
     console.log('Connection Established');
     console.log('Issue Command for new Instance: ' + formattedDate)
 
-    axios.post(`${API_URL}/api/matchmaker`, null, config)
+    axios.post(`${API_URL}/api/matchmaker`, {server: serverSlug}, config)
         .then(response => {
             // handle success
             const data = response.data
@@ -115,7 +115,7 @@ wss.on('connection', function connection(ws) {
             }
 
             if(message.type === 'setupInstance') {
-                setup(ws)
+                setup(ws, message.server)
             }
 
             if (message.type === 1 && message.action === 'check_streamer_connected') {
