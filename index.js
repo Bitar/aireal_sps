@@ -116,6 +116,7 @@ function notifyAirealStreamerConnected(ws, message) {
         });
 }
 
+wss.on('listening', () => console.log('WebSocket server is running on port 9090'));
 wss.on('connection', function connection(ws) {
     ws.on('message', function message(data) {
         console.log('received: %s', data);
