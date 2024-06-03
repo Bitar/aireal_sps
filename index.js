@@ -54,6 +54,8 @@ function setup(ws, serverSlug) {
         })
         .catch(error => {
             // handle error
+            console.log(error.status);
+            console.log(error.message);
             console.error(error);
         });
 }

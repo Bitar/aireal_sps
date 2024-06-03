@@ -2,9 +2,9 @@
 
 //-- Server side logic. Serves pixel streaming WebRTC-based page, proxies data back to Streamer --//
 
+const httpsAction = require('https').Agent;
 var express = require('express');
 var app = express();
-
 const fs = require('fs');
 const path = require('path');
 const querystring = require('querystring');
@@ -646,7 +646,11 @@ function forwardStreamerMessageToPlayer(streamer, msg) {
 	}
 }
 
-let airealServer = new WebSocket('ws://34.122.219.21:9090');
+const agent = new httpsAction({
+	rejectUnauthorized: false
+});
+
+let airealServer = new WebSocket('wss://matchmaker.aws.sps.aireal.com:9090', {agent});
 airealServer.onopen = () => {
 	console.logColor(logging.Green, `Aireal Server connected: `);
 }
