@@ -1,8 +1,9 @@
 const WebSocket = require('ws');
 const axios = require('axios')
 const https = require('https');
+const path = require('path');
 const fs = require('fs');
-require('dotenv').config();
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const privateKey = fs.readFileSync(process.env.APS_DOMAIN_PRIVATE_KEY);
 const certificate = fs.readFileSync(process.env.APS_DOMAIN_CERTIFICATE);
